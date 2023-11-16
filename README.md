@@ -1,4 +1,4 @@
-Application to search for github users and put them in favorites.
+### Application to search for github users and put them in favorites.
 
 - MVVM
 - Retrofit
