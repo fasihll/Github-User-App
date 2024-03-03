@@ -10,7 +10,7 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.githubuserapp.R
-import com.example.githubuserapp.core.presentation.MainActivity
+import com.example.githubuserapp.presentation.MainActivity
 import org.junit.Test
 
 @RunWith(AndroidJUnit4ClassRunner::class)
