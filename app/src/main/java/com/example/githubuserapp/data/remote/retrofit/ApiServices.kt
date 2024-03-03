@@ -1,8 +1,9 @@
 package com.example.githubuserapp.data.remote.retrofit
 
-import com.example.githubuserapp.data.remote.response.DetailUserResponse
-import com.example.githubuserapp.data.remote.response.ItemsItem
-import com.example.githubuserapp.data.remote.response.UsersResponse
+import com.example.githubuserapp.domain.model.DetailUserResponse
+import com.example.githubuserapp.domain.model.ItemsItem
+import com.example.githubuserapp.domain.model.UsersResponse
+import com.example.githubuserapp.repository.UserRepository
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,22 +11,22 @@ import retrofit2.http.Query
 
 interface ApiServices {
     @GET("search/users")
-    fun getUsers(
+    suspend fun getUsers(
         @Query("q") q:String
-    ): Call<UsersResponse>
+    ): UsersResponse
 
     @GET("users/{username}")
-    fun getUserByUsername(
+    suspend fun getUserByUsername(
         @Path("username") username:String
-    ): Call<DetailUserResponse>
+    ): DetailUserResponse
 
     @GET("users/{username}/followers")
-    fun getFollowers(
+    suspend fun getFollowers(
         @Path("username") username:String
-    ): Call<List<ItemsItem>>
+    ): List<ItemsItem>
 
     @GET("users/{username}/following")
-    fun getFollowing(
+    suspend fun getFollowing(
         @Path("username") username:String
-    ): Call<List<ItemsItem>>
+    ): List<ItemsItem>
 }

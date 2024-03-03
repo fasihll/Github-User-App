@@ -1,30 +1,37 @@
-package com.example.githubuserapp.ui
+package com.example.githubuserapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.githubuserapp.R
-import com.example.githubuserapp.data.local.entity.FavoriteUser
-import com.example.githubuserapp.data.remote.response.DetailUserResponse
 import com.example.githubuserapp.databinding.ActivityDetailUserBinding
-import com.example.githubuserapp.ui.viewModel.DetailUserViewModel
-import com.example.githubuserapp.ui.viewModel.FavoriteViewModel
-import com.example.githubuserapp.ui.viewModel.ViewModelFactory
+import com.example.githubuserapp.data.local.entity.FavoriteUser
+import com.example.githubuserapp.domain.model.DetailUserResponse
+import com.example.githubuserapp.presentation.viewModel.DetailUserViewModel
+import com.example.githubuserapp.presentation.viewModel.FavoriteViewModel
+import com.example.githubuserapp.presentation.viewModel.ViewModelFactory
+import com.example.githubuserapp.utils.Result
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
-    private val detailUserViewModel by viewModels<DetailUserViewModel>()
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    private val viewModel by viewModels<DetailUserViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
+    private val viewModel1 by viewModels<FavoriteViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
 
     private var UserNow: FavoriteUser? = null
 
@@ -35,8 +42,6 @@ class DetailUserActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.topAppBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        favoriteViewModel = obtainViewModel(this@DetailUserActivity)
 
         val name = intent.getStringExtra(USERNAME)
         val avatar = intent.getStringExtra(AVATAR_URL)
@@ -58,18 +63,28 @@ class DetailUserActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-        detailUserViewModel.setUsername(name.toString())
-        detailUserViewModel.listDetailUsers.observe(this,{  listDetailUser ->
-            setData(listDetailUser)
+        viewModel.showDetailUser(name.toString()).observe(this,{  result ->
+            if (result != null){
+                when(result){
+                    is Result.Loading ->{
+                        showLoading(true)
+                    }
+                    is Result.Success ->{
+                        showLoading(false)
+                        setData(result.data)
+                    }
+                    is Result.Error ->{
+                        showLoading(true)
+                    }
+                }
+            }else{
+                Log.d("RES","null!!")
+            }
         })
 
-        detailUserViewModel.isLoading.observe(this){
-            showLoading(it)
-        }
 
-        showLoading(true)
 
-        favoriteViewModel.getFavoriteUserByUsername(name.toString()).observe(this,{res ->
+        viewModel1.getFavoriteUserByUsername(name.toString()).observe(this,{res ->
             if (res != null){
                 UserNow = res
                 binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(binding.fabFavorite
@@ -92,11 +107,11 @@ class DetailUserActivity : AppCompatActivity() {
                     avatar,
                     github_url
                 )
-                favoriteViewModel.insert(data)
+                viewModel1.insert(data)
                 Toast.makeText(this@DetailUserActivity,"Ditambahakn di Favorite",Toast
                     .LENGTH_SHORT).show()
             }else{
-                favoriteViewModel.delete(UserNow!!)
+                viewModel1.delete(UserNow!!)
                 UserNow = null
                 Toast.makeText(this@DetailUserActivity,"Dihapus di Favorite",Toast
                     .LENGTH_SHORT).show()
@@ -130,11 +145,6 @@ class DetailUserActivity : AppCompatActivity() {
         }else{
             binding.progressBar.visibility = View.GONE
         }
-    }
-
-    private fun obtainViewModel(activity: AppCompatActivity): FavoriteViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(FavoriteViewModel::class.java)
     }
 
     companion object{

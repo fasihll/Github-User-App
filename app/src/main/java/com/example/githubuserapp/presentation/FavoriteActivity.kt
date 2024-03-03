@@ -1,25 +1,33 @@
-package com.example.githubuserapp.ui
+package com.example.githubuserapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuserapp.data.local.datastore.SettingPreferences
-import com.example.githubuserapp.data.local.datastore.dataStore
-import com.example.githubuserapp.data.remote.response.ItemsItem
 import com.example.githubuserapp.databinding.ActivityFavoriteBinding
-import com.example.githubuserapp.ui.viewModel.FavoriteViewModel
-import com.example.githubuserapp.ui.viewModel.SettingsViewModel
-import com.example.githubuserapp.ui.viewModel.SettingsViewModelFactory
-import com.example.githubuserapp.ui.viewModel.ViewModelFactory
+import com.example.githubuserapp.domain.model.ItemsItem
+import com.example.githubuserapp.presentation.viewModel.FavoriteViewModel
+import com.example.githubuserapp.presentation.viewModel.FollowViewModel
+import com.example.githubuserapp.presentation.viewModel.SettingsViewModel
+import com.example.githubuserapp.presentation.viewModel.ViewModelFactory
+import com.example.githubuserapp.utils.Result
 
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var favoriteViewModel: FavoriteViewModel
+    private val viewModel by viewModels<FavoriteViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
+    private val viewModel1 by viewModels<SettingsViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,29 +42,31 @@ class FavoriteActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this@FavoriteActivity,layoutManager.orientation)
         binding.rvFavorit.addItemDecoration(itemDecoration)
 
-        favoriteViewModel = obtainViewModel(this@FavoriteActivity)
 
-        favoriteViewModel.getAllFavoriteUser().observe(this, { users ->
-            val items = arrayListOf<ItemsItem>()
-            users.map {
-                val item = ItemsItem(login = it.username, avatarUrl = it.avatar_url, htmlUrl = it
-                    .github_url)
-                items.add(item)
+
+        viewModel.getAllFavoriteUser().observe(this, { result ->
+            if (result != null){
+                        val items = arrayListOf<ItemsItem>()
+                        result.map {
+                            val item = ItemsItem(login = it.username, avatarUrl = it.avatar_url, htmlUrl = it
+                                .github_url)
+                            items.add(item)
+                        }
+                        setUsersData(items)
+            }else{
+                Toast.makeText(this,"Data Gaga Di Muat",Toast.LENGTH_SHORT).show()
             }
-            setUsersData(items)
         })
 
-        val pref = SettingPreferences.getInstance(application.dataStore)
-        val settingsViewModel = ViewModelProvider(this, SettingsViewModelFactory(pref)).get(
-            SettingsViewModel::class.java
-        )
 
-        settingsViewModel.getThemeSetting().observe(this){isDarkModeActive: Boolean ->
-            if (isDarkModeActive){
+        viewModel1.getThemeSetting.observe(this){ result ->
+
+            if (result){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+
         }
     }
 
@@ -73,8 +83,4 @@ class FavoriteActivity : AppCompatActivity() {
         binding.rvFavorit.adapter = adapter
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): FavoriteViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(FavoriteViewModel::class.java)
-    }
 }

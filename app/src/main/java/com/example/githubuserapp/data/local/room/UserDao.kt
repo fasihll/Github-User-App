@@ -12,13 +12,13 @@ import com.example.githubuserapp.data.local.entity.FavoriteUser
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(user: FavoriteUser)
+    suspend fun insert(user: FavoriteUser)
 
     @Update
     fun update(user: FavoriteUser)
 
     @Delete
-    fun delete(user: FavoriteUser)
+    suspend fun delete(user: FavoriteUser)
 
     @Query("SELECT * FROM FavoriteUser ORDER BY id ASC")
     fun getAllFavoriteUser(): LiveData<List<FavoriteUser>>

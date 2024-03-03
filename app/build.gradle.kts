@@ -23,7 +23,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","HEADER", "\"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\"")
+        buildConfigField("String","HEADER", "\"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\"")
     }
 
     buildTypes {
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-
+//    implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -71,6 +71,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")

@@ -29,12 +29,14 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
 
     companion object{
         @Volatile
-        private var INSTANCE: SettingPreferences? = null
+        private var INSTANCE: com.example.githubuserapp.data.local.datastore.SettingPreferences? = null
 
-        fun getInstance(dataStore: DataStore<Preferences>): SettingPreferences{
-            return INSTANCE ?: synchronized(this){
-                val instance = SettingPreferences(dataStore)
-                INSTANCE = instance
+        fun getInstance(dataStore: DataStore<Preferences>): com.example.githubuserapp.data.local.datastore.SettingPreferences {
+            return com.example.githubuserapp.data.local.datastore.SettingPreferences.Companion.INSTANCE
+                ?: synchronized(this){
+                val instance =
+                    com.example.githubuserapp.data.local.datastore.SettingPreferences(dataStore)
+                com.example.githubuserapp.data.local.datastore.SettingPreferences.Companion.INSTANCE = instance
                 instance
             }
         }

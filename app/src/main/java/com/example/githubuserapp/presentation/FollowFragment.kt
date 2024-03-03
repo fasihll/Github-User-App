@@ -1,11 +1,14 @@
-package com.example.githubuserapp.ui
+package com.example.githubuserapp.presentation
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -13,17 +16,24 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapp.data.local.datastore.SettingPreferences
 import com.example.githubuserapp.data.local.datastore.dataStore
-import com.example.githubuserapp.data.remote.response.ItemsItem
-import com.example.githubuserapp.ui.viewModel.FollowViewModel
 import com.example.githubuserapp.databinding.FragmentFollowBinding
-import com.example.githubuserapp.ui.viewModel.SettingsViewModel
-import com.example.githubuserapp.ui.viewModel.SettingsViewModelFactory
+import com.example.githubuserapp.domain.model.ItemsItem
+import com.example.githubuserapp.presentation.viewModel.FollowViewModel
+import com.example.githubuserapp.presentation.viewModel.MainViewModel
+import com.example.githubuserapp.presentation.viewModel.SettingsViewModel
+import com.example.githubuserapp.presentation.viewModel.ViewModelFactory
+import com.example.githubuserapp.utils.Result
 
 
 class FollowFragment : Fragment() {
 
     private var binding: FragmentFollowBinding? = null
-    private val followViewModel by viewModels<FollowViewModel>()
+    private val viewModel by viewModels<FollowViewModel>{
+        ViewModelFactory.getInstance(requireContext())
+    }
+    private val viewModel2 by viewModels<SettingsViewModel>{
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     companion object{
         const val ARG_POSITION = "position"
@@ -54,34 +64,59 @@ class FollowFragment : Fragment() {
         binding?.rvFollow?.addItemDecoration(dividerItemDecoration)
 
         if (position == 1){
-            followViewModel.showFollowers(username)
-            followViewModel.listFollowers.observe(viewLifecycleOwner,{ listFollowers ->
-               setFollowData(listFollowers)
+            viewModel.showFollowers(username).observe(viewLifecycleOwner,{ result ->
+                if (result != null){
+                    when(result){
+                        is Result.Loading -> {
+                            Log.d("RES","Loading...")
+                        }
+                        is Result.Success -> {
+                            setFollowData(result.data)
+                        }
+                        is Result.Error -> {
+                            Log.d("RES","Error!!")
+                        }
+                    }
+                }else{
+                    Log.d("RES","null!!")
+                }
            })
         }else{
-            followViewModel.showFollowing(username)
-            followViewModel.listFollowing.observe(viewLifecycleOwner,{ listFollowing ->
-                setFollowData(listFollowing)
+            viewModel.showFollowing(username).observe(viewLifecycleOwner,{ result ->
+                if (result != null){
+                    when(result){
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                        is Result.Success -> {
+                            showLoading(false)
+                            setFollowData(result.data)
+                        }
+                        is Result.Error -> {
+                            showLoading(true)
+                        }
+                    }
+                }else{
+                    Toast.makeText(requireContext(),"Data Gaga Di Muat", Toast.LENGTH_SHORT).show()
+                }
             })
         }
 
-        followViewModel.isLoading.observe(requireActivity()){
+        viewModel.isLoading.observe(requireActivity()){
             showLoading(it)
         }
 
-        showLoading(true)
 
-        val pref = SettingPreferences.getInstance(requireActivity().dataStore)
-        val settingsViewModel = ViewModelProvider(this, SettingsViewModelFactory(pref)).get(
-            SettingsViewModel::class.java
-        )
 
-        settingsViewModel.getThemeSetting().observe(requireActivity()){isDarkModeActive: Boolean ->
-            if (isDarkModeActive){
+        viewModel2.getThemeSetting.observe(viewLifecycleOwner){ result ->
+
+            if (result){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+
+
         }
     }
 
