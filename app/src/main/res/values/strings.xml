@@ -16,4 +16,5 @@
     <string name="tab_text_2">Following</string>
     <string name="favorite_description">favorite button</string>
     <string name="change_theme_menu">Dark Mode</string>
+    <string name="title_favorite">Favorite</string>
 </resources>
