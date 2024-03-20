@@ -10,6 +10,9 @@ import com.example.core.data.remote.RemoteDataSource
 import com.example.core.data.remote.retrofit.ApiServices
 import com.example.core.domain.repository.IUserRepository
 import com.example.core.data.UserRepository
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -34,11 +37,21 @@ val networkModule = module {
         }else{
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
         }
+
+        val hostname = "api.github.com"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/jFaeVpA8UQuidlJkkpIdq3MPwD0m8XbuCRbJlezysBE=")
+            .add(hostname, "sha256/Wec45nQiFwKvHtuHxSAMGkt19k+uPSw9JlEkxhvYPHk=")
+            .add(hostname, "sha256/lmo8/KPXoMsxI+J9hY+ibNm2r0IYChmOsF9BxD74PVc=")
+            .add(hostname, "sha256/6YBE8kK4d5J1qu1wEjyoKqzEIvyRY5HyM/NB2wKdcZo=")
+            .build()
+
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
@@ -55,10 +68,14 @@ val networkModule = module {
 val databaseModule = module {
     factory { get<UserRoomDatabase>().userDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("fasih123".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
-            UserRoomDatabase::class.java,"user_database"
-        ).fallbackToDestructiveMigration().build()
+            UserRoomDatabase::class.java,"user_database.db"
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 

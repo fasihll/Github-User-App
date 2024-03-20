@@ -17,4 +17,7 @@
     <string name="favorite_description">favorite button</string>
     <string name="change_theme_menu">Dark Mode</string>
     <string name="title_favorite">Favorite</string>
+    <string name="unknow">Unknow</string>
+    <string name="_0_followers">0 Followers</string>
+    <string name="_0_following">0 Following</string>
 </resources>

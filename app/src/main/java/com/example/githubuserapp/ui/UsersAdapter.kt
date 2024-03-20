@@ -23,7 +23,8 @@ class UsersAdapter: ListAdapter<ItemsItem, UsersAdapter.MyViewHolder>(DIFF_CALLB
         holder.bind(users)
     }
 
-    class MyViewHolder(val binding: ItemUsersBinding): RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemUsersBinding): RecyclerView.ViewHolder(binding
+        .root) {
 
         fun bind(users: ItemsItem){
             Glide.with(itemView.context)

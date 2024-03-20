@@ -20,19 +20,22 @@ android {
         minSdk = 28
         targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String","HEADER", "\"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\"")
+        buildConfigField("String","HEADER", "\"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\"")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "consumer-rules.pro"
+                "proguard-rules.pro"
             )
         }
     }
@@ -59,5 +62,4 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-
 }

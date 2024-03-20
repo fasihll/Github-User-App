@@ -1,7 +1,8 @@
 package com.example.core.domain.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
-
+@Keep
 data class UsersResponse(
 
 	@field:SerializedName("total_count")
@@ -14,6 +15,7 @@ data class UsersResponse(
 	val items: List<ItemsItem?>? = null
 )
 
+@Keep
 data class ItemsItem(
 
 	@field:SerializedName("gists_url")

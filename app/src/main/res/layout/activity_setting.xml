@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".core.presentation.SettingActivity">
+    tools:context=".setting.SettingActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBarLayout"
@@ -38,7 +38,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackgroundBorderless">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/change_theme_menu"
                 android:layout_weight="1"/>

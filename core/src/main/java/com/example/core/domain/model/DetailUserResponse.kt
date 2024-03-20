@@ -1,7 +1,8 @@
 package com.example.core.domain.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
-
+@Keep
 data class DetailUserResponse(
 
 	@field:SerializedName("gists_url")
