@@ -121,12 +121,12 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun setData(detailUsers: DetailUserResponse){
         Glide.with(this@DetailUserActivity)
-            .load(detailUsers?.avatarUrl)
+            .load(detailUsers.avatarUrl)
             .into(binding.profileImage)
-        binding.name.text = detailUsers?.name
-        binding.username.text = detailUsers?.login
-        binding.followers.text = "${detailUsers?.followers} Followers"
-        binding.following.text = "${detailUsers?.following} Following"
+        binding.name.text = detailUsers.name
+        binding.username.text = detailUsers.login
+        binding.followers.text = "${detailUsers.followers} Followers"
+        binding.following.text = "${detailUsers.following} Following"
     }
 
 

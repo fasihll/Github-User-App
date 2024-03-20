@@ -7,6 +7,8 @@ import com.example.githubuserapp.detail.DetailUserViewModel
 import com.example.githubuserapp.detail.FavoriteViewModel
 import com.example.githubuserapp.follow.FollowViewModel
 import com.example.githubuserapp.setting.SettingsViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -14,6 +16,7 @@ val useCaseModule = module {
     factory<UserUseCase> { UserInteractor(get()) }
 }
 
+@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { SettingsViewModel(get()) }

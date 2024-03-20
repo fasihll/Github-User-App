@@ -14,12 +14,10 @@ class RemoteDataSource(
 ) {
     fun searchUsers(searchKeyword: String?): Flow<Result<UsersResponse>> {
         return flow {
-            var key = ""
-
-            if (searchKeyword == null || searchKeyword == ""){
-                key = "fasih"
-            }else{
-                key = searchKeyword.toString()
+            val key = if (searchKeyword.isNullOrEmpty()) {
+                "fasih"
+            } else {
+                searchKeyword.toString()
             }
             emit(Result.Loading)
             try {
