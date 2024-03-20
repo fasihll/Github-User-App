@@ -20,7 +20,7 @@ android {
         minSdk = 28
         targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String","HEADER", "\"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\"")
+        buildConfigField("String","HEADER", "\"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\"")
     }
 
     buildTypes {
