@@ -1,3 +1,4 @@
+[![fasihll](https://circleci.com/gh/fasihll/Github-User-App.svg?style=svg)](https://circleci.com/gh/fasihll/Github-User-App)
 ### Application to search for github users, detile, put them in favorites and change the theme.
 
 <p align="center">
