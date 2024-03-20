@@ -69,7 +69,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu1 -> startActivity(Intent(this, SettingActivity::class.java))
                 R.id.menu2 -> {
                     val uri = Uri.parse("githubuserapp://favorite")
-                    startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    intent.data = uri  // Optional: Pass data to the activity
+                    startActivity(intent)
                 }
             }
             true
