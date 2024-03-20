@@ -16,3 +16,12 @@
 - ViewPager2
 - SplashScreen
 - Ui Test
+- Clean Architecture
+- Coroutin Flow
+- Koin
+- Modularization
+- Continuous Integration (Circle CI)
+- Leak Canary
+- solfe issue performance 
+- Security(obfuscation with ProGuard, encryption database, certificate pinning for api)
+
