@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.core.domain.model.ItemsItem
+import com.example.core.data.remote.response.ItemsItem
 import com.example.core.domain.usecase.UserUseCase
 
 class FollowViewModel(

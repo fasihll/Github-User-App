@@ -1,9 +1,10 @@
 package com.example.core.domain.usecase
 
-import com.example.core.domain.model.DetailUserResponse
+import com.example.core.data.remote.response.DetailUserResponse
+import com.example.core.data.local.entity.FavoriteUserEntity
+import com.example.core.data.remote.response.ItemsItem
+import com.example.core.data.remote.response.UsersResponse
 import com.example.core.domain.model.FavoriteUser
-import com.example.core.domain.model.ItemsItem
-import com.example.core.domain.model.UsersResponse
 import com.example.core.utils.Result
 import kotlinx.coroutines.flow.Flow
 

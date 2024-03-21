@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.core.domain.model.ItemsItem
+import com.example.core.data.remote.response.ItemsItem
 import com.example.githubuserapp.favorite.databinding.ActivityFavoriteBinding
 import com.example.githubuserapp.favorite.di.favoriteModule
 import com.example.githubuserapp.ui.UsersAdapter

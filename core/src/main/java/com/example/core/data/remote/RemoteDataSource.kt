@@ -1,9 +1,9 @@
 package com.example.core.data.remote
 
-import com.example.core.data.remote.retrofit.ApiServices
-import com.example.core.domain.model.DetailUserResponse
-import com.example.core.domain.model.ItemsItem
-import com.example.core.domain.model.UsersResponse
+import com.example.core.data.remote.network.ApiServices
+import com.example.core.data.remote.response.DetailUserResponse
+import com.example.core.data.remote.response.ItemsItem
+import com.example.core.data.remote.response.UsersResponse
 import com.example.core.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

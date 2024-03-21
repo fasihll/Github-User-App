@@ -9,7 +9,8 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.example.core.domain.model.DetailUserResponse
+import com.example.core.data.remote.response.DetailUserResponse
+import com.example.core.data.local.entity.FavoriteUserEntity
 import com.example.core.domain.model.FavoriteUser
 import com.example.core.utils.Result
 import com.example.githubuserapp.R
@@ -77,7 +78,7 @@ class DetailUserActivity : AppCompatActivity() {
 
 
         viewModel1.getFavoriteUserByUsername(name.toString()).observe(this,{res ->
-            if (res != null){
+            if (res.username != null){
                 UserNow = res
                 binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(binding.fabFavorite
                     .context, R

@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.core.domain.model.ItemsItem
+import com.example.core.data.remote.response.ItemsItem
 import com.example.core.utils.Result
 import com.example.githubuserapp.databinding.ActivityMainBinding
 import com.example.githubuserapp.setting.SettingActivity

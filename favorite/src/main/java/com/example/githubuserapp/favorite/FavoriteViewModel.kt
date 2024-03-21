@@ -3,6 +3,7 @@ package com.example.githubuserapp.favorite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.core.data.local.entity.FavoriteUserEntity
 import com.example.core.domain.model.FavoriteUser
 import com.example.core.domain.usecase.UserUseCase
 import kotlinx.coroutines.launch

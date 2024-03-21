@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Github User App</string>
     <string name="setting_item">Setting</string>
     <string name="favorite_item">Favorite</string>
@@ -10,14 +10,14 @@
     <string name="total_followers">0 Followers</string>
     <string name="total_following">0 Following</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="test_username">Test Username</string>
+    <string name="hello_blank_fragment" tools:ignore="UnusedResources">Hello blank fragment</string>
+    <string name="test_username" tools:ignore="UnusedResources">Test Username</string>
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
     <string name="favorite_description">favorite button</string>
     <string name="change_theme_menu">Dark Mode</string>
     <string name="title_favorite">Favorite</string>
-    <string name="unknow">Unknow</string>
-    <string name="_0_followers">0 Followers</string>
-    <string name="_0_following">0 Following</string>
+    <string name="unknow" tools:ignore="UnusedResources">Unknow</string>
+    <string name="_0_followers" tools:ignore="UnusedResources">0 Followers</string>
+    <string name="_0_following" tools:ignore="UnusedResources">0 Following</string>
 </resources>

@@ -2,7 +2,7 @@ package com.example.core.data.local
 
 import com.example.core.data.local.datastore.SettingPreferences
 import com.example.core.data.local.room.UserRoomDatabase
-import com.example.core.domain.model.FavoriteUser
+import com.example.core.data.local.entity.FavoriteUserEntity
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource(
@@ -18,17 +18,17 @@ class LocalDataSource(
         userPreferences.saveThemeSetting(isDarkModeActive)
     }
 
-    fun getAllFavoriteUser(): Flow<List<FavoriteUser>> = database.userDao()
+    fun getAllFavoriteUser(): Flow<List<FavoriteUserEntity>> = database.userDao()
         .getAllFavoriteUser()
 
-    fun getFavoriteUserByUsername(username: String): Flow<FavoriteUser> = database
+    fun getFavoriteUserByUsername(username: String): Flow<FavoriteUserEntity> = database
         .userDao().getFavoriteUserByUsername(username)
 
-    suspend fun insert(user: FavoriteUser){
+    suspend fun insert(user: FavoriteUserEntity){
         database.userDao().insert(user)
     }
 
-    suspend fun delete(user: FavoriteUser){
+    suspend fun delete(user: FavoriteUserEntity){
         database.userDao().delete(user)
     }
 }

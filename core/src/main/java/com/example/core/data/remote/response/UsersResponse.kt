@@ -1,4 +1,4 @@
-package com.example.core.domain.model
+package com.example.core.data.remote.response
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName

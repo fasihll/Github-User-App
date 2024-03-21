@@ -1,8 +1,8 @@
-package com.example.core.data.remote.retrofit
+package com.example.core.data.remote.network
 
-import com.example.core.domain.model.DetailUserResponse
-import com.example.core.domain.model.ItemsItem
-import com.example.core.domain.model.UsersResponse
+import com.example.core.data.remote.response.DetailUserResponse
+import com.example.core.data.remote.response.ItemsItem
+import com.example.core.data.remote.response.UsersResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

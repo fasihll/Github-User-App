@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.core.databinding.ItemUsersBinding
-import com.example.core.domain.model.ItemsItem
+import com.example.core.data.remote.response.ItemsItem
 import com.example.githubuserapp.detail.DetailUserActivity
 
 class UsersAdapter: ListAdapter<ItemsItem, UsersAdapter.MyViewHolder>(DIFF_CALLBACK) {

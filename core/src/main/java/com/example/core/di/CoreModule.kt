@@ -7,7 +7,7 @@ import com.example.core.data.local.datastore.SettingPreferences
 import com.example.core.data.local.datastore.dataStore
 import com.example.core.data.local.room.UserRoomDatabase
 import com.example.core.data.remote.RemoteDataSource
-import com.example.core.data.remote.retrofit.ApiServices
+import com.example.core.data.remote.network.ApiServices
 import com.example.core.domain.repository.IUserRepository
 import com.example.core.data.UserRepository
 import net.sqlcipher.database.SQLiteDatabase
